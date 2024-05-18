@@ -13,7 +13,9 @@ PV = "1.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
-inherit cmake
+DEPENDS += "libevdev"
+
+inherit pkgconfig cmake
 
 EXTRA_OECMAKE = ""
 
