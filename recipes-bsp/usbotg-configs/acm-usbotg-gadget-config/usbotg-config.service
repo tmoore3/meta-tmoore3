@@ -1,0 +1,12 @@
+[Unit]
+Description=Configure USB ACM gadget
+After=systemd-remount-fs.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=-/sbin/usbotg_acm_config.sh start
+ExecStop=/sbin/usbotg_acm_config.sh stop
+
+[Install]
+WantedBy=multi-user.target

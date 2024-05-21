@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="udc", RUN+="/sbin/usbotg_acm_config.sh restart"
+
