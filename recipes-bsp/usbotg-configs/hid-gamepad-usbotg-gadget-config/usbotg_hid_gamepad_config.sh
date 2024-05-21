@@ -60,29 +60,29 @@ do_start() {
     echo 8 > "${d}/functions/${func_hid_gamepad}/report_length"
     echo -ne \\x05\\x01\\x09\\x05\\xA1\\x01\\xA1\\x00\\x85\\x01\\x05\\x01\\x09\\x30\\x09\\x31\\x15\\x01\\x26\\xff\\x07\\x75\\x10\\x95\\x02\\x81\\x02\\x05\\x09\\x19\\x01\\x29\\x0F\\x15\\x00\\x25\\x01\\x75\\x01\\x95\\x0F\\x81\\x02\\xC0\\xC0 > "${d}/functions/${func_hid_gamepad}/report_desc"
 
-    # 0x05, 0x01,                    // Usage Page (Generic Desktop)
-    # 0x09, 0x05,                    // Usage (Game Pad)
-    # 0xa1, 0x01,                    // Collection (Application)
-    # 0xa1, 0x00,                    //   Collection (Physical)
-    # 0x85, 0x01,                    //     Report ID (1)
-    # 0x05, 0x01,                    //     Usage Page (Generic Desktop)
-    # 0x09, 0x30,                    //     Usage (X)
-    # 0x09, 0x31,                    //     Usage (Y)
-    # 0x15, x01,                     //     Logical Minimum (1)
-    # 0x26, 0xff, 0x07,              //     Logical Maximum (2047)
-    # 0x75, 0x10,                    //     Report Size (16)
-    # 0x95, 0x02,                    //     Report Count (2)
-    # 0x81, 0x02,                    //     Input (Data,Var,Abs)
-    # 0x05, 0x09,                    //     Usage Page (Button)
-    # 0x19, 0x01,                    //     Usage Minimum (1)
-    # 0x29, 0x0F,                    //     Usage Maximum (15)
-    # 0x15, 0x00,                    //     Logical Minimum (0)
-    # 0x25, 0x01,                    //     Logical Maximum (1)
-    # 0x75, 0x01,                    //     Report Size (1)
-    # 0x95, 0x0F,                    //     Report Count (15)
-    # 0x81, 0x02,                    //     Input (Data,Var,Abs)
-    # 0xc0,                          //   End Collection
-    # 0xc0                           // End Collection
+    # 0x05, 0x01,        // Usage Page (Generic Desktop Ctrls)
+    # 0x09, 0x05,        // Usage (Game Pad)
+    # 0xA1, 0x01,        // Collection (Application)
+    # 0xA1, 0x00,        //   Collection (Physical)
+    # 0x85, 0x01,        //     Report ID (1)
+    # 0x05, 0x01,        //     Usage Page (Generic Desktop Ctrls)
+    # 0x09, 0x30,        //     Usage (X)
+    # 0x09, 0x31,        //     Usage (Y)
+    # 0x15, 0x01,        //     Logical Minimum (1)
+    # 0x26, 0xFF, 0x07,  //     Logical Maximum (2047)
+    # 0x75, 0x10,        //     Report Size (16)
+    # 0x95, 0x02,        //     Report Count (2)
+    # 0x81, 0x02,        //     Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
+    # 0x05, 0x09,        //     Usage Page (Button)
+    # 0x19, 0x01,        //     Usage Minimum (0x01)
+    # 0x29, 0x0F,        //     Usage Maximum (0x0F)
+    # 0x15, 0x00,        //     Logical Minimum (0)
+    # 0x25, 0x01,        //     Logical Maximum (1)
+    # 0x75, 0x01,        //     Report Size (1)
+    # 0x95, 0x0F,        //     Report Count (15)
+    # 0x81, 0x02,        //     Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
+    # 0xC0,              //   End Collection
+    # 0xC0,              // End Collection
 
     # Assign function to configuration
     ln -s "${d}/functions/${func_hid_gamepad}" "${d}/configs/${c}"
