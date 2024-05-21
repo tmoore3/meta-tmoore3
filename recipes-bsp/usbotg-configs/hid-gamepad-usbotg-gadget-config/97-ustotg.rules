@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="udc", RUN+="/sbin/usbotg_hid_gamepad_config.sh restart"
+

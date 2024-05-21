@@ -1,0 +1,13 @@
+[Unit]
+Description=Enable USB HID gadget
+After=systemd-remount-fs.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=-/sbin/usbotg_hid_gamepad_config.sh.sh start
+ExecStop=/sbin/usbotg_hid_gamepad_config.sh.sh stop
+
+
+[Install]
+WantedBy=multi-user.target
