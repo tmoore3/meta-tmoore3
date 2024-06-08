@@ -5,6 +5,7 @@ g=g1
 c=c.1
 d="${configfs}/${g}"
 func_hid_gamepad=hid.0
+func_acm=acm.0
 
 VENDOR_ID="0x1d6b" # Linux Foundation 
 PRODUCT_ID="0x0104" # Multifunction Composite Gadget
@@ -58,7 +59,7 @@ do_start() {
     echo 1 > "${d}/functions/${func_hid_gamepad}/subclass"
     echo 2 > "${d}/functions/${func_hid_gamepad}/protocol"
     echo 8 > "${d}/functions/${func_hid_gamepad}/report_length"
-    echo -ne \\x05\\x01\\x09\\x05\\xA1\\x01\\xA1\\x00\\x85\\x01\\x05\\x01\\x09\\x30\\x09\\x31\\x15\\x01\\x26\\xff\\x07\\x75\\x10\\x95\\x02\\x81\\x02\\x05\\x09\\x19\\x01\\x29\\x0F\\x15\\x00\\x25\\x01\\x75\\x01\\x95\\x0F\\x81\\x02\\xC0\\xC0 > "${d}/functions/${func_hid_gamepad}/report_desc"
+    echo -ne \\x05\\x01\\x09\\x05\\xA1\\x01\\xA1\\x00\\x85\\x01\\x05\\x01\\x09\\x30\\x09\\x31\\x15\\x00\\x26\\x7C\\x06\\x75\\x10\\x95\\x02\\x81\\x02\\x05\\x09\\x19\\x01\\x29\\x0F\\x15\\x00\\x25\\x01\\x75\\x01\\x95\\x0F\\x81\\x02\\xC0\\xC0 > "${d}/functions/${func_hid_gamepad}/report_desc"
 
     # 0x05, 0x01,        // Usage Page (Generic Desktop Ctrls)
     # 0x09, 0x05,        // Usage (Game Pad)
@@ -68,8 +69,8 @@ do_start() {
     # 0x05, 0x01,        //     Usage Page (Generic Desktop Ctrls)
     # 0x09, 0x30,        //     Usage (X)
     # 0x09, 0x31,        //     Usage (Y)
-    # 0x15, 0x01,        //     Logical Minimum (1)
-    # 0x26, 0xFF, 0x07,  //     Logical Maximum (2047)
+    # 0x15, 0x00,        //     Logical Minimum (0)
+    # 0x26, 0x7C, 0x06,  //     Logical Maximum (1660)
     # 0x75, 0x10,        //     Report Size (16)
     # 0x95, 0x02,        //     Report Count (2)
     # 0x81, 0x02,        //     Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
@@ -84,6 +85,12 @@ do_start() {
     # 0xC0,              //   End Collection
     # 0xC0,              // End Collection
 
+    # Create gadget serial function
+    mkdir -p "${d}/functions/${func_acm}"
+
+    # Assign function to configuration
+    ln -s "${d}/functions/${func_acm}" "${d}/configs/${c}"
+
     # Assign function to configuration
     ln -s "${d}/functions/${func_hid_gamepad}" "${d}/configs/${c}"
 
@@ -97,6 +104,7 @@ do_stop() {
 
     # # Teardown gadget directory
     [ -d "${d}/configs/${c}/${func_hid_gamepad}" ] && rm -f "${d}/configs/${c}/${func_hid_gamepad}"
+    [ -d "${d}/configs/${c}/${func_acm}" ] && rm -f "${d}/configs/${c}/${func_acm}"
 
     [ -d "${d}/strings/0x409/" ] && rmdir "${d}/strings/0x409/"
     [ -d "${d}/configs/${c}/strings/0x409" ] && rmdir "${d}/configs/${c}/strings/0x409"
